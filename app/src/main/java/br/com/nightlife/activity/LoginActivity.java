@@ -35,6 +35,7 @@ public class LoginActivity extends Activity {
 
     private void init() {
         app = (App) getApplication();
+        attacher = PullToRefreshAttacher.get(this);
         uiHelper = new LoginUiHelper();
         uiHelper.facebook.setOnClickListener(configOnFacebookClickListener());
     }
@@ -60,10 +61,14 @@ public class LoginActivity extends Activity {
 
     private void statusExecutando() {
         attacher.setRefreshing(true);
+        uiHelper.progress.setVisibility(View.VISIBLE);
+        uiHelper.facebook.setEnabled(false);
     }
 
     private void statusExecutado() {
         attacher.setRefreshComplete();
+        uiHelper.progress.setVisibility(View.GONE);
+        uiHelper.facebook.setEnabled(true);
     }
 
     private LogInCallback callBackLoginFacebook() {
@@ -93,9 +98,11 @@ public class LoginActivity extends Activity {
     class LoginUiHelper{
 
         public View facebook;
+        public View progress;
 
         public LoginUiHelper(){
             facebook = findViewById(R.id.login_facebook);
+            progress = findViewById(R.id.login_facebook_progress);
         }
     }
 

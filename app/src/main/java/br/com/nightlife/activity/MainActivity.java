@@ -8,15 +8,21 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.parse.ParseUser;
+
 import br.com.nightlife.R;
 import br.com.nightlife.adapter.MenuAdapter;
 import br.com.nightlife.fragment.BaladaFragment;
 import br.com.nightlife.pojo.MenuPojo;
+import br.com.nightlife.util.NavegacaoUtil;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 
 public class MainActivity extends FragmentActivity {
@@ -28,6 +34,8 @@ public class MainActivity extends FragmentActivity {
     private CharSequence mDrawerTitle;
     private ListView mListView;
     private CharSequence mTitle;
+
+    public PullToRefreshAttacher attacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +49,6 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void init() {
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLinear = (LinearLayout) findViewById(R.id.left_drawer);
@@ -68,6 +74,7 @@ public class MainActivity extends FragmentActivity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        attacher = PullToRefreshAttacher.get(this);
     }
 
     /**
@@ -91,5 +98,27 @@ public class MainActivity extends FragmentActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         mDrawerLayout.closeDrawer(mDrawerLinear);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_main_logout:
+                logout();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        ParseUser.logOut();
+        NavegacaoUtil.navegar(this, LoginActivity.class);
+        finish();
     }
 }

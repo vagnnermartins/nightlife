@@ -14,12 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#993366CC">
+        android:background="@color/laranja_menu">
 
         <ListView
             android:id="@+id/list_menu"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:dividerHeight="0.5dp"

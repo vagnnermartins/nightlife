@@ -2,18 +2,27 @@
 <resources>
 
     <string name="app_name">Night Life</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="facebook_app_id">547336922068789</string>
 
-    <!--Login-->
+    <!-- Login -->
     <string name="login_entrar_com_o_fb">Enter with Facebook</string>
 
+    <!-- Main -->
+    <string name="main_menu_logout">Sair</string>
+
     <!-- Menu Item -->
-    <string name="menu_baladas">Baladas</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="fragment_baladas">Baladas</string>
+    <string name="fragment_taxi">Taxi</string>
+
+    <!--Taxi Fragment-->
+    <string name="fragment_taxi_menu_ligar">Ligar</string>
+    <string name="fragment_taxi_menu_ver_no_mapa">Ver no mapa</string>
 
     <!-- Erro -->
     <string name="exception_erro_err_internet_disconnected">Could not find an internet connection. Try again!</string>
+    <string name="exception_erro_err_gps">Could not find an GPS connection. Try again!</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

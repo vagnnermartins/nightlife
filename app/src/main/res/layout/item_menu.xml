@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingLeft="12dp"
-        android:src="@android:drawable/ic_dialog_info" />
+        android:src="@drawable/ic_menu_balada" />
 
     <TextView
         android:id="@+id/item_menu_name"

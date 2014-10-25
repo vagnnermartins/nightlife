@@ -39,7 +39,7 @@
                 android:textColor="@color/branco" />
 
             <ProgressBar
-                android:id="@+id/login_progress_facebook"
+                android:id="@+id/login_facebook_progress"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="7dp"
