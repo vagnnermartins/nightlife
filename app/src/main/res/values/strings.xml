@@ -13,16 +13,27 @@
     <!-- Menu Item -->
     <string name="fragment_baladas">Baladas</string>
     <string name="fragment_taxi">Taxi</string>
+    <string name="fragment_evento">Evento</string>
 
-    <!--Taxi Fragment-->
+    <!-- Taxi Fragment -->
     <string name="fragment_taxi_menu_ligar">Ligar</string>
     <string name="fragment_taxi_menu_ver_no_mapa">Ver no mapa</string>
+
+    <!-- Evento Fragment -->
+    <string name="fragment_evento_participar">Participar</string>
+    <string name="fragment_evento_desistir">Desistir</string>
+
+    <!--Detalhe Evento-->
+    <string name="detalhe_evento_informacoes">Informações</string>
+    <string name="detalhe_evento_localizacao">Localização</string>
+    <string name="detalhe_evento_ligar">Ligar</string>
+    <string name="detalhe_evento_confirmacao">Confirmacão</string>
+    <string name="detalhe_evento_confirmacao_mensagem">Tem certeza que deseja realizar a ligacão a seguir?</string>
+    <string name="detalhe_evento_evento_adicionado">Evento adicionado em seus eventos com sucesso</string>
+    <string name="detalhe_evento_evento_removido">Evento removido de seus eventos com sucesso</string>
 
     <!-- Erro -->
     <string name="exception_erro_err_internet_disconnected">Could not find an internet connection. Try again!</string>
     <string name="exception_erro_err_gps">Could not find an GPS connection. Try again!</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 
 </resources>

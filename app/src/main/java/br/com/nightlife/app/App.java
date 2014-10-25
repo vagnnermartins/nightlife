@@ -15,9 +15,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -26,7 +30,11 @@ import java.util.List;
 import br.com.nightlife.R;
 import br.com.nightlife.callback.Callback;
 import br.com.nightlife.constants.Keys;
+import br.com.nightlife.parse.BaladaParse;
+import br.com.nightlife.parse.EventoParse;
+import br.com.nightlife.parse.GeneroParse;
 import br.com.nightlife.parse.TaxiParse;
+import br.com.nightlife.parse.UserParse;
 import br.com.nightlife.util.ConnectionDetectorUtils;
 import br.com.nightlife.util.GPSTrackerUtils;
 
@@ -42,6 +50,9 @@ public class App extends Application {
     public LatLng location;
 
     public List<TaxiParse> listTaxi;
+    public List<EventoParse> listEvento;
+    public List<EventoParse> meusEventos;
+    public EventoParse eventoSelecionado;
 
     @Override
     public void onCreate() {
@@ -58,6 +69,10 @@ public class App extends Application {
 
     private void initParse() {
         ParseObject.registerSubclass(TaxiParse.class);
+        ParseObject.registerSubclass(EventoParse.class);
+        ParseObject.registerSubclass(BaladaParse.class);
+        ParseObject.registerSubclass(GeneroParse.class);
+        ParseObject.registerSubclass(UserParse.class);
         Parse.initialize(this, Keys.PARSE_APP_ID, Keys.PARSE_CLIENT_KEY);
         ParseFacebookUtils.initialize(Keys.FACEBOOK_APP_ID);
     }

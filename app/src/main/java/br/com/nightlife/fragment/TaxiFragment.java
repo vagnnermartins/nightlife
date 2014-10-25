@@ -30,7 +30,7 @@ import br.com.nightlife.parse.TaxiParse;
 import br.com.nightlife.util.DistanciaUtil;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
-public class TaxiFragment extends Fragment {
+public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRefreshListener {
 
     private static final double MIN_DISTANCIA = 5000;
 
@@ -56,6 +56,7 @@ public class TaxiFragment extends Fragment {
         app.callback = configAtualizarLocation();
         uiHelper = new TaxiUiHelper();
         uiHelper.listView.setOnItemLongClickListener(configOnItemLongClickListener());
+        attacher.addRefreshableView(uiHelper.listView, this);
         registerForContextMenu(uiHelper.listView);
     }
 
@@ -104,6 +105,7 @@ public class TaxiFragment extends Fragment {
             @Override
             public void done(List<TaxiParse> result, ParseException error) {
                 if(error == null){
+                    app.listTaxi = result;
                     setList(result);
                 }
                 verificarStatus(StatusEnum.EXECUTADO);
@@ -189,6 +191,11 @@ public class TaxiFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         app.callback = null;
+    }
+
+    @Override
+    public void onRefreshStarted(View view) {
+        verificarStatus(StatusEnum.INICIO);
     }
 
     class TaxiUiHelper{

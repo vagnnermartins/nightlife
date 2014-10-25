@@ -1,0 +1,159 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detalhe_evento_informacoes"
+        android:textAllCaps="true"
+        android:textColor="@color/laranja"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_calendar" />
+
+        <TextView
+            android:id="@+id/detalhe_evento_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="6.5"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Sábado, 14 de Outubro de 2014" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_relogio" />
+
+        <TextView
+            android:id="@+id/detalhe_evento_hora"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="2.5"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="23:00" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:animateLayoutChanges="true">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_phone" />
+
+        <TextView
+            android:id="@+id/detalhe_evento_telefone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="9.5"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="(11) 2742-6452"
+            android:textColor="@android:color/holo_blue_dark"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_genero" />
+
+        <TextView
+            android:id="@+id/detalhe_evento_genero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="9.5"
+            android:text="" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/detalhe_evento_descricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="A descrição do evento vai vir aqui, e vai ficar bem bonitinha 136" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detalhe_evento_localizacao"
+        android:textAllCaps="true"
+        android:textColor="@color/laranja"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_local" />
+
+        <TextView
+            android:id="@+id/detalhe_evento_endereco"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="9.5"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Av. Prof. Luiz Ignácio de Anhaia Mello, 2.797, Sapopembra, São Paulo-SP" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detalhe_evento_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="7dp"/>
+
+</LinearLayout>
