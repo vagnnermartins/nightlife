@@ -1,6 +1,7 @@
 package br.com.nightlife.activity;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -49,6 +50,8 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void init() {
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
         mTitle = mDrawerTitle = getTitle();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLinear = (LinearLayout) findViewById(R.id.left_drawer);
@@ -109,11 +112,30 @@ public class MainActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case android.R.id.home:
+                if (mDrawerLayout.isDrawerOpen(mDrawerLinear)){
+                    mDrawerLayout.closeDrawer(mDrawerLinear);
+                } else {
+                    mDrawerLayout.openDrawer(mDrawerLinear);
+                }
+                break;
             case R.id.menu_main_logout:
                 logout();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     private void logout() {

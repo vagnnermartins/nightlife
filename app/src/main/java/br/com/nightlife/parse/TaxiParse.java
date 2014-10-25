@@ -18,9 +18,9 @@ public class TaxiParse extends ParseObject {
 
     public static void getTaxiByLocation(ParseGeoPoint location, FindCallback<TaxiParse> callback){
         ParseQuery<TaxiParse> query = ParseQuery.getQuery(TaxiParse.class);
-        if(location != null){
-            query.whereWithinKilometers(LOCALIZACAO, location, MAX_DISTANCE);
-        }
+//        if(location != null){
+//            query.whereWithinKilometers(LOCALIZACAO, location, MAX_DISTANCE);
+//        }
         query.whereEqualTo(STATUS, true);
         query.findInBackground(callback);
     }
