@@ -14,13 +14,13 @@ public class TaxiParse extends ParseObject {
     private static final String TELEFONE = "telefone";
     private static final String LOCALIZACAO = "localizacao";
     private static final String STATUS = "status";
-    private static final double MAX_DISTANCE = 10;
+    private static final double MAX_DISTANCE = 100;
 
     public static void getTaxiByLocation(ParseGeoPoint location, FindCallback<TaxiParse> callback){
         ParseQuery<TaxiParse> query = ParseQuery.getQuery(TaxiParse.class);
-//        if(location != null){
-//            query.whereWithinKilometers(LOCALIZACAO, location, MAX_DISTANCE);
-//        }
+        if(location != null){
+            query.whereWithinKilometers(LOCALIZACAO, location, MAX_DISTANCE);
+        }
         query.whereEqualTo(STATUS, true);
         query.findInBackground(callback);
     }
