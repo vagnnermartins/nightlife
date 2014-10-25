@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.nightlife.R;
 import br.com.nightlife.fragment.BaladaFragment;
 import br.com.nightlife.fragment.EventoFragment;
+import br.com.nightlife.fragment.SobreFragment;
 import br.com.nightlife.fragment.TaxiFragment;
 
 /**
@@ -28,6 +29,7 @@ public class MenuPojo {
         list.add(new MenuPojo(BaladaFragment.class.getName(), R.string.fragment_baladas, R.drawable.ic_menu_balada));
         list.add(new MenuPojo(TaxiFragment.class.getName(), R.string.fragment_taxi, R.drawable.ic_menu_taxi));
         list.add(new MenuPojo(EventoFragment.class.getName(), R.string.fragment_evento, R.drawable.ic_menu_evento));
+        list.add(new MenuPojo(SobreFragment.class.getName(), R.string.fragment_sobre, R.drawable.ic_menu_sobre));
         return list;
     }
 

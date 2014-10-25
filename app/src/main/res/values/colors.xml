@@ -25,7 +25,5 @@
 
     <color name="azul_fb">#3B5998</color>
     <color name="branco">#f8f8f8f8</color>
-    <color name="laranja">#ffffad26</color>
-    <color name="laranja_menu">#ffffe400</color>
-    <color name="action_bar_text">#ff6a00</color>
+    <color name="back_menu">#ff6a6a6a</color>
 </resources>

@@ -16,7 +16,7 @@
         android:maxLines="2"
         android:text="Caribbean em alto mar"
         android:textAllCaps="true"
-        android:textColor="@color/laranja"
+        android:textColor="@android:color/holo_orange_dark"
         android:textSize="15sp" />
 
     <TextView

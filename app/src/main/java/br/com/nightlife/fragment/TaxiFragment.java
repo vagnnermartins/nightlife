@@ -138,11 +138,13 @@ public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRe
         if(uiHelper.listView.getAdapter() != null && ultimaPosicao != null){
             for(int i = 0; i < uiHelper.listView.getAdapter().getCount(); i++){
                 View current = uiHelper.listView.getChildAt(i);
-                TaxiAdapter.TaxiViewHolder viewHolder = (TaxiAdapter.TaxiViewHolder) current.getTag();
-                TaxiParse item = (TaxiParse) uiHelper.listView.getAdapter().getItem(i);
-                double distancia = DistanciaUtil.calcularDistanciaEntreDoisPontos(item.getLocalizacao().getLatitude(), item.getLocalizacao().getLongitude(),
-                        ultimaPosicao.latitude, ultimaPosicao.longitude);
-                viewHolder.distancia.setText(DistanciaUtil.distanciaEmMetrosPorExtenso(distancia));
+                if(current != null){
+                    TaxiAdapter.TaxiViewHolder viewHolder = (TaxiAdapter.TaxiViewHolder) current.getTag();
+                    TaxiParse item = (TaxiParse) uiHelper.listView.getAdapter().getItem(i);
+                    double distancia = DistanciaUtil.calcularDistanciaEntreDoisPontos(item.getLocalizacao().getLatitude(), item.getLocalizacao().getLongitude(),
+                            ultimaPosicao.latitude, ultimaPosicao.longitude);
+                    viewHolder.distancia.setText(DistanciaUtil.distanciaEmMetrosPorExtenso(distancia));
+                }
             }
         }
     }

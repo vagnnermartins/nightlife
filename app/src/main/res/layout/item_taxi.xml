@@ -15,7 +15,7 @@
         android:maxLines="2"
         android:text="Ponto Juazeiro do Norte"
         android:textAllCaps="true"
-        android:textColor="@color/laranja"
+        android:textColor="@android:color/holo_green_dark"
         android:textSize="15sp" />
 
     <LinearLayout

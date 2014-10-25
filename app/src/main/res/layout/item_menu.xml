@@ -1,28 +1,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="240dp"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:background="?android:attr/activatedBackgroundIndicator"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:gravity="center_vertical"
-    >
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:orientation="horizontal"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall">
 
     <ImageView
         android:id="@+id/item_menu_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingLeft="12dp"
-        android:src="@drawable/ic_menu_balada" />
+        android:src="@drawable/ic_menu_balada"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
 
     <TextView
         android:id="@+id/item_menu_name"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:paddingLeft="12dp"
-        android:text="Travel"
-        android:textColor="#FEFEFE" />
+        android:layout_marginLeft="12dp"
+        android:text="Balada"
+        android:textColor="@color/branco"
+        android:textSize="18sp" />
 
 
 </LinearLayout>

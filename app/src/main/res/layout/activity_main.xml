@@ -14,15 +14,16 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/laranja_menu">
+        android:background="@color/back_menu">
 
         <ListView
             android:id="@+id/list_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="0.5dp"
-            android:divider="@android:color/white"
-            android:choiceMode="singleChoice" />
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="0.3dp"
+            android:paddingTop="@dimen/activity_vertical_margin" />
 
 
     </LinearLayout>
