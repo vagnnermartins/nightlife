@@ -1,6 +1,8 @@
 package br.com.nightlife.parse;
 
+import com.parse.FindCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
@@ -11,6 +13,13 @@ import com.parse.ParseUser;
 public class UserParse extends ParseUser {
 
     private static final String MEUS_EVENTOS = "meusEventos";
+    private static final String BALADA = "balada";
+
+    public void buscarMeusEventos(FindCallback<EventoParse> callback){
+        ParseQuery<EventoParse> query = getMeusEventos().getQuery();
+        query.include(BALADA);
+        query.findInBackground(callback);
+    }
 
     public ParseRelation<EventoParse> getMeusEventos(){
         return getRelation(MEUS_EVENTOS);

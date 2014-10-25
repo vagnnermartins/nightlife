@@ -14,6 +14,7 @@
     <string name="fragment_baladas">Baladas</string>
     <string name="fragment_taxi">Taxi</string>
     <string name="fragment_evento">Evento</string>
+    <string name="fragment_meus_eventos">Meus eventos</string>
     <string name="fragment_sobre">Sobre</string>
 
     <!-- Taxi Fragment -->
