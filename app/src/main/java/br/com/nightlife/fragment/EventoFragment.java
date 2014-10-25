@@ -3,10 +3,7 @@ package br.com.nightlife.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -62,7 +59,6 @@ public class EventoFragment extends Fragment implements PullToRefreshAttacher.On
         uiHelper.listView.setOnItemLongClickListener(configOnItemLongClickListener());
         uiHelper.listView.setOnItemClickListener(configOnItemClickListener());
         attacher.addRefreshableView(uiHelper.listView, this);
-        registerForContextMenu(uiHelper.listView);
     }
 
     private void verificarStatus(StatusEnum status){
@@ -119,22 +115,6 @@ public class EventoFragment extends Fragment implements PullToRefreshAttacher.On
             app.eventoSelecionado = (EventoParse) adapterView.getAdapter().getItem(position);
             NavegacaoUtil.navegar(getActivity(), DetalheEventoActivity.class);
         };
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.menu_context_evento, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menu_context_evento_participar:
-                break;
-        }
-        return super.onContextItemSelected(item);
     }
 
     @Override
