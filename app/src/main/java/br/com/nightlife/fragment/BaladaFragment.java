@@ -92,6 +92,7 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
                 point = new ParseGeoPoint(app.location.latitude, app.location.longitude);
             }
             BaladaParse.buscarBaladas(point, configFindBaladasCallback());
+            verificarStatus(StatusEnum.EXECUTANDO);
         }
     }
 

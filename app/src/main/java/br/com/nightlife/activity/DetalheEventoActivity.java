@@ -75,7 +75,6 @@ public class DetalheEventoActivity extends FragmentActivity {
     private void initAfterStart() {
         map = mMapFragment.getMap();
         map.setMyLocationEnabled(true);
-        map.setPadding(0, 120, 0, 0);
         putPin();
     }
 
@@ -165,8 +164,8 @@ public class DetalheEventoActivity extends FragmentActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.detalhe_evento_confirmacao);
         builder.setMessage(R.string.detalhe_evento_confirmacao_mensagem);
-        builder.setPositiveButton(android.R.string.no, (dialogInterface, i) -> ligar());
-        builder.setNegativeButton(android.R.string.yes, null);
+        builder.setPositiveButton(android.R.string.yes, (dialogInterface, i) -> ligar());
+        builder.setNegativeButton(android.R.string.no, null);
         builder.create().show();
     }
 
