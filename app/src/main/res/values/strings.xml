@@ -25,7 +25,7 @@
     <string name="fragment_evento_participar">Participar</string>
     <string name="fragment_evento_desistir">Desistir</string>
 
-    <!--Detalhe Evento-->
+    <!-- Detalhe Evento -->
     <string name="detalhe_evento_informacoes">Informações</string>
     <string name="detalhe_evento_localizacao">Localização</string>
     <string name="detalhe_evento_ligar">Ligar</string>
@@ -37,5 +37,8 @@
     <!-- Erro -->
     <string name="exception_erro_err_internet_disconnected">Could not find an internet connection. Try again!</string>
     <string name="exception_erro_err_gps">Could not find an GPS connection. Try again!</string>
+    <string name="title_activity_detalhe_balada">DetalheBaladaActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

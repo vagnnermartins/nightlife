@@ -1,8 +1,10 @@
 package br.com.nightlife.parse;
 
+import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 /**
  * Created by vagnnermartins on 25/10/14.
@@ -23,6 +25,16 @@ public class BaladaParse extends ParseObject {
     private static final String LOCALIZACAO = "localizacao";
     private static final String ANIVERSARIO = "aniversario";
     private static final String PACOTE_ANIVERSARIO = "pacoteAniversario";
+    private static final double MAX_DISTANCE = 100;
+
+    public static void buscarBaladas(ParseGeoPoint point, FindCallback<BaladaParse> callback){
+        ParseQuery<BaladaParse> query = ParseQuery.getQuery(BaladaParse.class);
+        if(point != null){
+            query.whereNear(LOCALIZACAO, point);
+            query.whereWithinKilometers(LOCALIZACAO, point, MAX_DISTANCE);
+        }
+        query.findInBackground(callback);
+    }
 
     public String getNome(){
         return getString(NOME);

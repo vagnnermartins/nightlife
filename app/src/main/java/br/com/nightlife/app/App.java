@@ -49,10 +49,12 @@ public class App extends Application {
     public Callback callback;
     public LatLng location;
 
+    public List<BaladaParse> listBalada;
     public List<TaxiParse> listTaxi;
     public List<EventoParse> listEvento;
     public List<EventoParse> meusEventos;
     public EventoParse eventoSelecionado;
+    public BaladaParse baladaSelecionada;
 
     @Override
     public void onCreate() {
