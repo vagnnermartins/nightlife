@@ -52,6 +52,8 @@ public class DetalheBaladaActivity extends FragmentActivity {
 
     private void init() {
         app = (App) getApplication();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
         getActionBar().setTitle(app.baladaSelecionada.getNome());
         uiHelper = new DetalheBaladaUiHelper();
         uiHelper.telefone.setOnClickListener(configOnTelefoneClickListener());
@@ -113,6 +115,16 @@ public class DetalheBaladaActivity extends FragmentActivity {
         builder.setPositiveButton(android.R.string.yes, (dialogInterface, i) -> ligar());
         builder.setNegativeButton(android.R.string.no, null);
         builder.create().show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+            finish();
+            break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     class DetalheBaladaUiHelper{
