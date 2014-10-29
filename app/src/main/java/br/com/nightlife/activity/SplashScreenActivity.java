@@ -3,13 +3,11 @@ package br.com.nightlife.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.parse.ParseUser;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.NavegacaoUtil;
 import br.com.nightlife.R;
-import br.com.nightlife.util.NavegacaoUtil;
 
 public class SplashScreenActivity extends Activity {
 
@@ -29,6 +27,7 @@ public class SplashScreenActivity extends Activity {
             }else{
                 NavegacaoUtil.navegar(this, MainActivity.class);
             }
+            finish();
         }, TIMER);
     }
 }

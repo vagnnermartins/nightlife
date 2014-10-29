@@ -16,8 +16,8 @@ public class TaxiParse extends ParseObject {
     private static final String STATUS = "status";
     private static final double MAX_DISTANCE = 100;
 
-    public static void getTaxiByLocation(ParseGeoPoint location, FindCallback<TaxiParse> callback){
-        ParseQuery<TaxiParse> query = ParseQuery.getQuery(TaxiParse.class);
+    public static void getTaxiByLocation(ParseGeoPoint location, FindCallback<ParseObject> callback){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Taxi");
         if(location != null){
             query.whereWithinKilometers(LOCALIZACAO, location, MAX_DISTANCE);
             query.whereNear(LOCALIZACAO, location);

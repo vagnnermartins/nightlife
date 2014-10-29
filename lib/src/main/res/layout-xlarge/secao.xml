@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/secao"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/gradient"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/secao_titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/branco_titulo_noticia"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/secao_descricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/branco_descricao_noticia"
+            android:textSize="23sp"
+            android:textStyle="italic" />
+    </LinearLayout>
+</RelativeLayout>

@@ -7,8 +7,10 @@ import br.com.nightlife.R;
 import br.com.nightlife.fragment.BaladaFragment;
 import br.com.nightlife.fragment.EventoFragment;
 import br.com.nightlife.fragment.MeusEventosFragment;
+import br.com.nightlife.fragment.RestauranteFragment;
 import br.com.nightlife.fragment.SobreFragment;
 import br.com.nightlife.fragment.TaxiFragment;
+import br.com.nightlife.parse.RestauranteParse;
 
 /**
  * Created by vagnnermartins on 24/10/14 .
@@ -30,6 +32,7 @@ public class MenuPojo {
         list.add(new MenuPojo(BaladaFragment.class.getName(), R.string.fragment_baladas, R.drawable.ic_menu_balada));
         list.add(new MenuPojo(EventoFragment.class.getName(), R.string.fragment_evento, R.drawable.ic_menu_evento));
         list.add(new MenuPojo(MeusEventosFragment.class.getName(), R.string.fragment_meus_eventos, R.drawable.ic_menu_meus_eventos));
+        list.add(new MenuPojo(RestauranteFragment.class.getName(), R.string.fragment_restaurante, R.drawable.ic_menu_restaurantes));
         list.add(new MenuPojo(TaxiFragment.class.getName(), R.string.fragment_taxi, R.drawable.ic_menu_taxi));
         list.add(new MenuPojo(SobreFragment.class.getName(), R.string.fragment_sobre, R.drawable.ic_menu_sobre));
         return list;

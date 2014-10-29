@@ -7,46 +7,59 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.tab.AbstractItemView;
+import br.com.metasix.olhos_do_rio.componentebox.lib.tab.TabBar;
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.NavegacaoUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.activity.DetalheEventoActivity;
 import br.com.nightlife.activity.MainActivity;
-import br.com.nightlife.adapter.EventoAdapter;
 import br.com.nightlife.app.App;
 import br.com.nightlife.enums.StatusEnum;
 import br.com.nightlife.parse.EventoParse;
-import br.com.nightlife.util.NavegacaoUtil;
+import br.com.nightlife.tabview.ListTabView;
+import br.com.nightlife.tabview.MapaTabView;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 /**
- * Created by vagnnermartins on 25/10/14.
+ * Created by vagnnermartins on 27/10/14 .
  */
 public class EventoFragment extends Fragment implements PullToRefreshAttacher.OnRefreshListener {
 
-    private View view;
-    private PullToRefreshAttacher attacher;
     private App app;
-    private EventoUiHelper uiHelper;
+    private PullToRefreshAttacher attacher;
+    private View view;
+    private MapaTabView mapaTabview;
+    private ListTabView listTabView;
+    private LinearLayout tabs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_evento, container, false);
+        view = inflater.inflate(R.layout.fragment_tab, container, false);
         init();
-        verificarAtualizar();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapaTabview.initAfterStart();
+        verificarAtualizar();
     }
 
     private void verificarAtualizar() {
         if(app.listEvento == null){
             verificarStatus(StatusEnum.INICIO);
         }else{
-            setList(app.listEvento);
+            update();
         }
     }
 
@@ -54,12 +67,18 @@ public class EventoFragment extends Fragment implements PullToRefreshAttacher.On
         getActivity().getActionBar().setTitle(R.string.fragment_evento);
         attacher = ((MainActivity) getActivity()).attacher;
         app = (App) getActivity().getApplication();
-        uiHelper = new EventoUiHelper();
-        uiHelper.listView.setOnItemClickListener(configOnItemClickListener());
-        attacher.addRefreshableView(uiHelper.listView, this);
+        mapaTabview = new MapaTabView(this, getActivity().getLayoutInflater().inflate(R.layout.tabview_mapa, null));
+        listTabView = new ListTabView(this, getActivity().getLayoutInflater().inflate(R.layout.tabview_list, null));
+        listTabView.uiHelper.listView.setOnItemClickListener(configOnItemClickListener());
+        attacher.addRefreshableView(listTabView.uiHelper.listView, this);
+        tabs = (LinearLayout) view.findViewById(R.id.main_tabs);
+        List<AbstractItemView> listTabs = new ArrayList<AbstractItemView>();
+        listTabs.add(mapaTabview);
+        listTabs.add(listTabView);
+        new TabBar(getActivity(), tabs, listTabs);
     }
 
-    private void verificarStatus(StatusEnum status){
+    public void verificarStatus(StatusEnum status){
         if(status == StatusEnum.INICIO){
             verificarInicio();
         }else if(status == StatusEnum.EXECUTANDO){
@@ -84,23 +103,6 @@ public class EventoFragment extends Fragment implements PullToRefreshAttacher.On
         attacher.setRefreshComplete();
     }
 
-    private void setList(List<EventoParse> result) {
-        uiHelper.listView.setAdapter(new EventoAdapter(getActivity(), R.layout.item_evento, result));
-    }
-
-    private FindCallback<EventoParse> configBuscarProximosEventos() {
-        return new FindCallback<EventoParse>() {
-            @Override
-            public void done(List<EventoParse> result, ParseException error) {
-                if(error == null){
-                    app.listEvento = result;
-                    setList(result);
-                }
-                verificarStatus(StatusEnum.EXECUTADO);
-            }
-        };
-    }
-
     private AdapterView.OnItemClickListener configOnItemClickListener() {
         return (adapterView, view1, position, l) -> {
             app.eventoSelecionado = (EventoParse) adapterView.getAdapter().getItem(position);
@@ -108,22 +110,28 @@ public class EventoFragment extends Fragment implements PullToRefreshAttacher.On
         };
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    private FindCallback<ParseObject> configBuscarProximosEventos() {
+        return new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> result, ParseException error) {
+                if(error == null){
+                    app.listEvento = result;
+                    if(isAdded()){
+                        update();
+                    }
+                }
+                verificarStatus(StatusEnum.EXECUTADO);
+            }
+        };
+    }
+
+    private void update() {
+        listTabView.update(app.listEvento);
+        mapaTabview.update(app.listEvento);
     }
 
     @Override
     public void onRefreshStarted(View view) {
         verificarStatus(StatusEnum.INICIO);
-    }
-
-    class EventoUiHelper{
-
-        ListView listView;
-
-        public EventoUiHelper(){
-            listView = (ListView) view.findViewById(R.id.evento_listview);
-        }
     }
 }

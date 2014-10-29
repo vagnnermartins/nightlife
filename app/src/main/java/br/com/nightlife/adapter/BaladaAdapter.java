@@ -7,23 +7,23 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.ParseObject;
 
 import java.util.List;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.DistanciaUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.parse.BaladaParse;
-import br.com.nightlife.parse.TaxiParse;
-import br.com.nightlife.util.DistanciaUtil;
 
 /**
  * Created by vagnnermartins on 25/10/14.
  */
-public class BaladaAdapter extends ArrayAdapter<BaladaParse> {
+public class BaladaAdapter extends ArrayAdapter<ParseObject> {
 
     private final int resource;
     private final LatLng location;
 
-    public BaladaAdapter(Context context, int resource, List<BaladaParse> objects, LatLng location) {
+    public BaladaAdapter(Context context, int resource, List<ParseObject> objects, LatLng location) {
         super(context, resource, objects);
         this.resource = resource;
         this.location = location;
@@ -43,7 +43,7 @@ public class BaladaAdapter extends ArrayAdapter<BaladaParse> {
         }else{
             viewHolder = (BaladaViewHolder) convertView.getTag();
         }
-        BaladaParse item = getItem(position);
+        BaladaParse item = (BaladaParse) getItem(position);
         viewHolder.nome.setText(item.getNome());
         viewHolder.telefone.setText(item.getTelefone());
         viewHolder.endereco.setText(item.getEnderecoFormatado());

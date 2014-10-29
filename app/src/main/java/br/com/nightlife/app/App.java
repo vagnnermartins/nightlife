@@ -3,14 +3,10 @@ package br.com.nightlife.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,21 +17,19 @@ import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.ConnectionDetectorUtils;
 import br.com.nightlife.R;
 import br.com.nightlife.callback.Callback;
 import br.com.nightlife.constants.Keys;
+import br.com.nightlife.parse.RestauranteParse;
 import br.com.nightlife.parse.BaladaParse;
 import br.com.nightlife.parse.EventoParse;
 import br.com.nightlife.parse.GeneroParse;
 import br.com.nightlife.parse.TaxiParse;
 import br.com.nightlife.parse.UserParse;
-import br.com.nightlife.util.ConnectionDetectorUtils;
 import br.com.nightlife.util.GPSTrackerUtils;
 
 /**
@@ -49,12 +43,15 @@ public class App extends Application {
     public Callback callback;
     public LatLng location;
 
-    public List<BaladaParse> listBalada;
-    public List<TaxiParse> listTaxi;
-    public List<EventoParse> listEvento;
-    public List<EventoParse> meusEventos;
+    public List<ParseObject> listBalada;
+    public List<ParseObject> listTaxi;
+    public List<ParseObject> listEvento;
+    public List<ParseObject> meusEventos;
+    public List<ParseObject> listRestaurantes;
     public EventoParse eventoSelecionado;
     public BaladaParse baladaSelecionada;
+    public RestauranteParse restauranteSelecionado;
+    public TaxiParse taxiSelecionado;
 
     @Override
     public void onCreate() {
@@ -75,6 +72,7 @@ public class App extends Application {
         ParseObject.registerSubclass(BaladaParse.class);
         ParseObject.registerSubclass(GeneroParse.class);
         ParseObject.registerSubclass(UserParse.class);
+        ParseObject.registerSubclass(RestauranteParse.class);
         Parse.initialize(this, Keys.PARSE_APP_ID, Keys.PARSE_CLIENT_KEY);
         ParseFacebookUtils.initialize(Keys.FACEBOOK_APP_ID);
     }

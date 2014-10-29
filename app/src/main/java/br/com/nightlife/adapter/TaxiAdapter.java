@@ -7,22 +7,23 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.ParseObject;
 
 import java.util.List;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.DistanciaUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.parse.TaxiParse;
-import br.com.nightlife.util.DistanciaUtil;
 
 /**
  * Created by vagnnermartins on 25/10/14.
  */
-public class TaxiAdapter extends ArrayAdapter<TaxiParse> {
+public class TaxiAdapter extends ArrayAdapter<ParseObject> {
 
     private final int resource;
     private final LatLng location;
 
-    public TaxiAdapter(Context context, int resource, List<TaxiParse> objects, LatLng location) {
+    public TaxiAdapter(Context context, int resource, List<ParseObject> objects, LatLng location) {
         super(context, resource, objects);
         this.resource = resource;
         this.location = location;
@@ -42,7 +43,7 @@ public class TaxiAdapter extends ArrayAdapter<TaxiParse> {
         }else{
             viewHolder = (TaxiViewHolder) convertView.getTag();
         }
-        TaxiParse item = getItem(position);
+        TaxiParse item = (TaxiParse) getItem(position);
         viewHolder.nome.setText(item.getNome());
         viewHolder.telefone.setText(item.getTelefone());
         viewHolder.endereco.setText(item.getEndereco());

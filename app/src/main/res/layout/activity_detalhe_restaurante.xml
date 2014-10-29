@@ -1,0 +1,181 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detalhe_evento_informacoes"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/detalhe_restaurante_funcionamento_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_relogio" />
+
+        <TextView
+            android:id="@+id/detalhe_restaurante_funcionamento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="9.5"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Sábado, 14 de Outubro de 2014" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detalhe_restaurante_telefone_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_phone" />
+
+        <TextView
+            android:id="@+id/detalhe_restaurante_telefone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="9.5"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="(11) 2742-6452"
+            android:textColor="@android:color/holo_blue_dark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detalhe_restaurante_website_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_website" />
+
+        <TextView
+            android:id="@+id/detalhe_restaurante_website"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="9.5"
+            android:text="www.google.com"
+            android:textColor="@android:color/holo_blue_dark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detalhe_restaurante_tipo_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_tipo_comida" />
+
+        <TextView
+            android:id="@+id/detalhe_restaurante_tipo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="9.5"
+            android:text="Japonesa" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detalhe_restaurante_descricao_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/detalhe_restaurante_descricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aqui vai a descricao" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detalhe_evento_localizacao"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/detalhe_restaurante_endereco_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_local" />
+
+        <TextView
+            android:id="@+id/detalhe_restaurante_endereco"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="9.5"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Av. Prof. Luiz Ignácio de Anhaia Mello, 2.797, Sapopembra, São Paulo-SP" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detalhe_restaurante_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:orientation="vertical" />
+
+</LinearLayout>

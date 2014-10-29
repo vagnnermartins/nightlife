@@ -7,15 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.tab.AbstractItemView;
+import br.com.metasix.olhos_do_rio.componentebox.lib.tab.TabBar;
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.DistanciaUtil;
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.NavegacaoUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.activity.DetalheBaladaActivity;
 import br.com.nightlife.activity.MainActivity;
@@ -24,58 +30,63 @@ import br.com.nightlife.app.App;
 import br.com.nightlife.callback.Callback;
 import br.com.nightlife.enums.StatusEnum;
 import br.com.nightlife.parse.BaladaParse;
-import br.com.nightlife.parse.TaxiParse;
-import br.com.nightlife.util.DistanciaUtil;
-import br.com.nightlife.util.NavegacaoUtil;
+import br.com.nightlife.tabview.ListTabView;
+import br.com.nightlife.tabview.MapaTabView;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 /**
- * Created by vagnnermartins on 24/10/14 .
+ * Created by vagnnermartins on 27/10/14 .
  */
 public class BaladaFragment extends Fragment implements PullToRefreshAttacher.OnRefreshListener {
 
     private static final double MIN_DISTANCIA = 5000;
-
     private App app;
-    private PullToRefreshAttacher attacher;
     private View view;
-    private BaladaUiHelper uiHelper;
+    private MapaTabView mapaTabview;
+    private ListTabView listTabView;
+    private LinearLayout tabs;
+    private PullToRefreshAttacher attacher;
     private LatLng ultimaPosicao;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_balada, container, false);
+        view = inflater.inflate(R.layout.fragment_tab, container, false);
         init();
-        verificarAtualizar();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapaTabview.initAfterStart();
+        verificarAtualizar();
     }
 
     private void verificarAtualizar() {
         if(app.listBalada == null){
             verificarStatus(StatusEnum.INICIO);
         }else{
-            setList(app.listBalada);
+            update();
         }
     }
 
     private void init() {
         getActivity().getActionBar().setTitle(R.string.fragment_baladas);
+        mapaTabview = new MapaTabView(this, getActivity().getLayoutInflater().inflate(R.layout.tabview_mapa, null));
+        listTabView = new ListTabView(this, getActivity().getLayoutInflater().inflate(R.layout.tabview_list, null));
         app = (App) getActivity().getApplication();
         attacher = ((MainActivity)getActivity()).attacher;
-        uiHelper = new BaladaUiHelper();
-        attacher.addRefreshableView(uiHelper.listView, this);
+        attacher.addRefreshableView(listTabView.uiHelper.listView, this);
         app.callback = configAtualizarLocation();
-        uiHelper.listView.setOnItemClickListener(configOnItemClickListener());
+        listTabView.uiHelper.listView.setOnItemClickListener(configOnItemClickListener());
+        tabs = (LinearLayout) view.findViewById(R.id.main_tabs);
+        List<AbstractItemView> listTabs = new ArrayList<AbstractItemView>();
+        listTabs.add(mapaTabview);
+        listTabs.add(listTabView);
+        new TabBar(getActivity(), tabs, listTabs);
     }
 
-    private AdapterView.OnItemClickListener configOnItemClickListener() {
-        return (adapterView, view1, position, l) -> {
-            app.baladaSelecionada = (BaladaParse) adapterView.getAdapter().getItem(position);
-            NavegacaoUtil.navegar(getActivity(), DetalheBaladaActivity.class);
-        };
-    }
-
-    private void verificarStatus(StatusEnum status){
+    public void verificarStatus(StatusEnum status){
         if(status == StatusEnum.INICIO){
             verificarInicio();
         }else if(status == StatusEnum.EXECUTANDO){
@@ -104,8 +115,26 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
         attacher.setRefreshComplete();
     }
 
-    private void setList(List<BaladaParse> result) {
-        uiHelper.listView.setAdapter(new BaladaAdapter(getActivity(), R.layout.item_balada, result, ultimaPosicao));
+    private AdapterView.OnItemClickListener configOnItemClickListener() {
+        return (adapterView, view1, position, l) -> {
+            app.baladaSelecionada = (BaladaParse) adapterView.getAdapter().getItem(position);
+            NavegacaoUtil.navegar(getActivity(), DetalheBaladaActivity.class);
+        };
+    }
+
+    private FindCallback<ParseObject> configFindBaladasCallback() {
+        return new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> result, ParseException error) {
+                if(error == null){
+                    app.listBalada = result;
+                    if(isAdded()){
+                        update();
+                    }
+                }
+                verificarStatus(StatusEnum.EXECUTADO);
+            }
+        };
     }
 
     /**
@@ -130,31 +159,14 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
      * Atualizar a distância de cada item na lista
      */
     private void atualizarDistancia() {
-        if(uiHelper.listView.getAdapter() != null && ultimaPosicao != null){
-            for(int i = 0; i < uiHelper.listView.getAdapter().getCount(); i++){
-                View current = uiHelper.listView.getChildAt(i);
-                if(current != null){
-                    BaladaAdapter.BaladaViewHolder viewHolder = (BaladaAdapter.BaladaViewHolder) current.getTag();
-                    BaladaParse item = (BaladaParse) uiHelper.listView.getAdapter().getItem(i);
-                    double distancia = DistanciaUtil.calcularDistanciaEntreDoisPontos(item.getLocalizacao().getLatitude(), item.getLocalizacao().getLongitude(),
-                            ultimaPosicao.latitude, ultimaPosicao.longitude);
-                    viewHolder.distancia.setText(DistanciaUtil.distanciaEmMetrosPorExtenso(distancia));
-                }
-            }
+        if(listTabView.uiHelper.listView.getAdapter() != null && ultimaPosicao != null){
+            listTabView.uiHelper.listView.invalidateViews();
         }
     }
 
-    private FindCallback<BaladaParse> configFindBaladasCallback() {
-        return new FindCallback<BaladaParse>() {
-            @Override
-            public void done(List<BaladaParse> result, ParseException error) {
-                if(error == null){
-                    app.listBalada = result;
-                    setList(app.listBalada);
-                }
-                verificarStatus(StatusEnum.EXECUTADO);
-            }
-        };
+    private void update() {
+        listTabView.update(app.listBalada, app.location);
+        mapaTabview.update(app.listBalada);
     }
 
     @Override
@@ -162,12 +174,9 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
         verificarStatus(StatusEnum.INICIO);
     }
 
-    class BaladaUiHelper{
-
-        ListView listView;
-
-        public BaladaUiHelper(){
-            listView = (ListView) view.findViewById(R.id.balada_listview);
-        }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        app.callback = null;
     }
 }

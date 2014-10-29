@@ -3,8 +3,6 @@ package br.com.nightlife.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.parse.LogInCallback;
@@ -14,10 +12,10 @@ import com.parse.ParseUser;
 
 import java.util.Arrays;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.NavegacaoUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.app.App;
 import br.com.nightlife.enums.StatusEnum;
-import br.com.nightlife.util.NavegacaoUtil;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 public class LoginActivity extends Activity {

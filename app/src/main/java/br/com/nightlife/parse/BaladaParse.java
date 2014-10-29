@@ -27,8 +27,8 @@ public class BaladaParse extends ParseObject {
     private static final String PACOTE_ANIVERSARIO = "pacoteAniversario";
     private static final double MAX_DISTANCE = 100;
 
-    public static void buscarBaladas(ParseGeoPoint point, FindCallback<BaladaParse> callback){
-        ParseQuery<BaladaParse> query = ParseQuery.getQuery(BaladaParse.class);
+    public static void buscarBaladas(ParseGeoPoint point, FindCallback<ParseObject> callback){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Balada");
         if(point != null){
             query.whereNear(LOCALIZACAO, point);
             query.whereWithinKilometers(LOCALIZACAO, point, MAX_DISTANCE);
@@ -88,4 +88,8 @@ public class BaladaParse extends ParseObject {
         return getEndereco() + ", " + getBairro() + ", " + getCidade();
     }
 
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }

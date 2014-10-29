@@ -26,4 +26,6 @@
     <color name="azul_fb">#3B5998</color>
     <color name="branco">#f8f8f8f8</color>
     <color name="back_menu">#ff6a6a6a</color>
+    <color name="branco_transparente_btn_mapa">#99ffffff</color>
+    <color name="cinza_claro">#46484a</color>
 </resources>

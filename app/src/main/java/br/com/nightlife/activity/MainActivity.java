@@ -1,6 +1,5 @@
 package br.com.nightlife.activity;
 
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -18,11 +17,11 @@ import android.widget.ListView;
 
 import com.parse.ParseUser;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.NavegacaoUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.adapter.MenuAdapter;
 import br.com.nightlife.fragment.BaladaFragment;
 import br.com.nightlife.pojo.MenuPojo;
-import br.com.nightlife.util.NavegacaoUtil;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 

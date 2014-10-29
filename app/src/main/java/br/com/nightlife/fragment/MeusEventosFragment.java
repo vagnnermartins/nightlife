@@ -11,10 +11,12 @@ import android.widget.ListView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.List;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.NavegacaoUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.activity.DetalheEventoActivity;
 import br.com.nightlife.activity.MainActivity;
@@ -23,12 +25,8 @@ import br.com.nightlife.app.App;
 import br.com.nightlife.enums.StatusEnum;
 import br.com.nightlife.parse.EventoParse;
 import br.com.nightlife.parse.UserParse;
-import br.com.nightlife.util.NavegacaoUtil;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
-/**
- * Created by vagnnermartins on 25/10/14.
- */
 public class MeusEventosFragment extends Fragment implements PullToRefreshAttacher.OnRefreshListener {
 
     private App app;
@@ -38,7 +36,7 @@ public class MeusEventosFragment extends Fragment implements PullToRefreshAttach
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_evento, container, false);
+        view = inflater.inflate(R.layout.fragment_meus_eventos, container, false);
         init();
         verificarAtualizar();
         return view;
@@ -61,7 +59,7 @@ public class MeusEventosFragment extends Fragment implements PullToRefreshAttach
         attacher.addRefreshableView(uiHelper.listView, this);
     }
 
-    private void verificarStatus(StatusEnum status){
+    public void verificarStatus(StatusEnum status){
         if(status == StatusEnum.INICIO){
             verificarInicio();
         }else if(status == StatusEnum.EXECUTANDO){
@@ -87,7 +85,7 @@ public class MeusEventosFragment extends Fragment implements PullToRefreshAttach
         attacher.setRefreshComplete();
     }
 
-    private void setList(List<EventoParse> result) {
+    private void setList(List<ParseObject> result) {
         uiHelper.listView.setAdapter(new EventoAdapter(getActivity(), R.layout.item_evento, result));
     }
 
@@ -98,13 +96,15 @@ public class MeusEventosFragment extends Fragment implements PullToRefreshAttach
         };
     }
 
-    private FindCallback<EventoParse> configFindMeusEventosCallback() {
-        return new FindCallback<EventoParse>() {
+    private FindCallback<ParseObject> configFindMeusEventosCallback() {
+        return new FindCallback<ParseObject>() {
             @Override
-            public void done(List<EventoParse> result, ParseException error) {
+            public void done(List<ParseObject> result, ParseException error) {
                 if(error == null){
                     app.meusEventos = result;
-                    setList(result);
+                    if(isAdded()){
+                        setList(result);
+                    }
                 }
                 verificarStatus(StatusEnum.EXECUTADO);
             }

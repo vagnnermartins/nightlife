@@ -19,19 +19,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.text.ParseException;
 import java.util.List;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.DataUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.app.App;
 import br.com.nightlife.enums.StatusEnum;
-import br.com.nightlife.parse.EventoParse;
 import br.com.nightlife.parse.GeneroParse;
 import br.com.nightlife.parse.UserParse;
-import br.com.nightlife.util.DataUtil;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 public class DetalheEventoActivity extends FragmentActivity {
@@ -224,10 +224,10 @@ public class DetalheEventoActivity extends FragmentActivity {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
-    private FindCallback<EventoParse> configFindMeusEventosCallback() {
-        return new FindCallback<EventoParse>() {
+    private FindCallback<ParseObject> configFindMeusEventosCallback() {
+        return new FindCallback<ParseObject>() {
             @Override
-            public void done(List<EventoParse> result, com.parse.ParseException error) {
+            public void done(List<ParseObject> result, com.parse.ParseException error) {
                 if(error == null){
                     app.meusEventos = result;
                 }

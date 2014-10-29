@@ -38,31 +38,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:src="@drawable/ic_local" />
-
-        <TextView
-            android:id="@+id/item_evento_local"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="9.5"
-            android:layout_marginLeft="5dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="Cabral" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="10">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:src="@drawable/ic_calendar" />
 
         <TextView

@@ -20,8 +20,8 @@ public class EventoParse extends ParseObject {
     private static final String BALADA = "balada";
     private static final String GENERO = "genero";
 
-    public static void buscarProximosEventos(FindCallback<EventoParse> callback){
-        ParseQuery<EventoParse> query = ParseQuery.getQuery(EventoParse.class);
+    public static void buscarProximosEventos(FindCallback<ParseObject> callback){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Evento");
         query.orderByAscending(DATA_EVENTO);
         query.include(BALADA);
         query.findInBackground(callback);

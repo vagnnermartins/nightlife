@@ -12,6 +12,7 @@
 
     <!-- Menu Item -->
     <string name="fragment_baladas">Baladas</string>
+    <string name="fragment_restaurante">Restaurantes</string>
     <string name="fragment_taxi">Taxi</string>
     <string name="fragment_evento">Evento</string>
     <string name="fragment_meus_eventos">Meus eventos</string>
@@ -24,6 +25,9 @@
     <!-- Evento Fragment -->
     <string name="fragment_evento_participar">Participar</string>
     <string name="fragment_evento_desistir">Desistir</string>
+
+    <!-- Evento Sobre -->
+    <string name="fragment_sobre_mensagem">\tNight Life é um aplicativo criado para você localizar baladas e eventos e se programar para a noitada!\n\n\tO aplicativo possui listas de baladas conforme sua localização, exibindo as informações do local como endereço, telefone e horário de funcionamento. Você também pode confirmar presença em eventos e salvá-los em "Meus Eventos" para se programar melhor. Além disso, você pode encontrar informações de táxis, estacionamentos e locais para comer próximos a sua localização.\n\n\tEsteja preparado antes, durante e após a balada!</string>
 
     <!-- Detalhe Evento -->
     <string name="detalhe_evento_informacoes">Informações</string>
@@ -38,6 +42,7 @@
     <string name="exception_erro_err_internet_disconnected">Could not find an internet connection. Try again!</string>
     <string name="exception_erro_err_gps">Could not find an GPS connection. Try again!</string>
     <string name="title_activity_detalhe_balada">DetalheBaladaActivity</string>
+    <string name="title_activity_detalhe_restaurante">DetalheRestauranteActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 

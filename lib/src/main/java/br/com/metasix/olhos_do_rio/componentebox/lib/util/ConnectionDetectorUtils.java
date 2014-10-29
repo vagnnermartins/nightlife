@@ -1,4 +1,4 @@
-package br.com.nightlife.util;
+package br.com.metasix.olhos_do_rio.componentebox.lib.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
