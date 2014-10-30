@@ -71,7 +71,7 @@ public class DetalheTaxiActivity extends FragmentActivity {
                 app.taxiSelecionado.getLocalizacao().getLongitude());
         map.addMarker(new MarkerOptions()
                 .position(position)
-                .title(app.taxiSelecionado.getNome()));
+                .title(app.taxiSelecionado.getNome())).showInfoWindow();;
         CameraUpdate center = CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM);
         map.animateCamera(center);
     }

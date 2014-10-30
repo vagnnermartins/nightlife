@@ -16,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -92,7 +93,7 @@ public class DetalheBaladaActivity extends FragmentActivity {
                 app.baladaSelecionada.getLocalizacao().getLongitude());
         map.addMarker(new MarkerOptions()
                 .position(position)
-                .title(app.baladaSelecionada.getNome()));
+                .title(app.baladaSelecionada.getNome())).showInfoWindow();
         CameraUpdate center = CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM);
         map.animateCamera(center);
     }

@@ -112,7 +112,7 @@ public class DetalheEventoActivity extends FragmentActivity {
                 app.eventoSelecionado.getBalada().getLocalizacao().getLongitude());
         map.addMarker(new MarkerOptions()
                 .position(position)
-                .title(app.eventoSelecionado.getNome()));
+                .title(app.eventoSelecionado.getNome())).showInfoWindow();;
         CameraUpdate center = CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM);
         map.animateCamera(center);
     }

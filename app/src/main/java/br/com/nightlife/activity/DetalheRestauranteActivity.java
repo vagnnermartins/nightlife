@@ -84,7 +84,7 @@ public class DetalheRestauranteActivity extends FragmentActivity {
                 app.restauranteSelecionado.getLocalizacao().getLongitude());
         map.addMarker(new MarkerOptions()
                 .position(position)
-                .title(app.restauranteSelecionado.getNome()));
+                .title(app.restauranteSelecionado.getNome())).showInfoWindow();;
         CameraUpdate center = CameraUpdateFactory.newLatLngZoom(position, MAP_ZOOM);
         map.animateCamera(center);
     }
