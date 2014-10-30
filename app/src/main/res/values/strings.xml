@@ -3,6 +3,7 @@
 
     <string name="app_name">Night Life</string>
     <string name="facebook_app_id">547336922068789</string>
+    <string name="sair">"Clique novamente para sair"</string>
 
     <!-- Login -->
     <string name="login_entrar_com_o_fb">Enter with Facebook</string>
@@ -14,6 +15,7 @@
     <string name="fragment_baladas">Baladas</string>
     <string name="fragment_restaurante">Restaurantes</string>
     <string name="fragment_taxi">Taxi</string>
+    <string name="fragment_estacionamento">Estacionamento</string>
     <string name="fragment_evento">Evento</string>
     <string name="fragment_meus_eventos">Meus eventos</string>
     <string name="fragment_sobre">Sobre</string>

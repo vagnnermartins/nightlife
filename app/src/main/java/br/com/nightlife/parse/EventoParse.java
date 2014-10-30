@@ -8,9 +8,6 @@ import com.parse.ParseRelation;
 
 import java.util.Date;
 
-/**
- * Created by vagnnermartins on 25/10/14.
- */
 @ParseClassName("Evento")
 public class EventoParse extends ParseObject {
 
@@ -62,5 +59,10 @@ public class EventoParse extends ParseObject {
     @Override
     public int hashCode() {
         return getObjectId() != null ? getObjectId().hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return getNome();
     }
 }

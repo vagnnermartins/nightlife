@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -18,7 +19,9 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.com.metasix.olhos_do_rio.componentebox.lib.util.ConnectionDetectorUtils;
 import br.com.nightlife.R;
@@ -52,6 +55,7 @@ public class App extends Application {
     public BaladaParse baladaSelecionada;
     public RestauranteParse restauranteSelecionado;
     public TaxiParse taxiSelecionado;
+    public Map<Marker, ParseObject> mapMarker;
 
     @Override
     public void onCreate() {
@@ -63,9 +67,13 @@ public class App extends Application {
         initParse();
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = configLocationListener();
+        mapMarker = new HashMap<>();
         updateLocation();
     }
 
+    /**
+     * Inicializa os objetos do Parse
+     */
     private void initParse() {
         ParseObject.registerSubclass(TaxiParse.class);
         ParseObject.registerSubclass(EventoParse.class);

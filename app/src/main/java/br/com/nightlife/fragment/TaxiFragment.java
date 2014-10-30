@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -27,12 +28,14 @@ import br.com.metasix.olhos_do_rio.componentebox.lib.tab.TabBar;
 import br.com.metasix.olhos_do_rio.componentebox.lib.util.DistanciaUtil;
 import br.com.metasix.olhos_do_rio.componentebox.lib.util.NavegacaoUtil;
 import br.com.nightlife.R;
+import br.com.nightlife.activity.DetalheRestauranteActivity;
 import br.com.nightlife.activity.DetalheTaxiActivity;
 import br.com.nightlife.activity.MainActivity;
 import br.com.nightlife.adapter.TaxiAdapter;
 import br.com.nightlife.app.App;
 import br.com.nightlife.callback.Callback;
 import br.com.nightlife.enums.StatusEnum;
+import br.com.nightlife.parse.RestauranteParse;
 import br.com.nightlife.parse.TaxiParse;
 import br.com.nightlife.tabview.ListTabView;
 import br.com.nightlife.tabview.MapaTabView;
@@ -53,6 +56,7 @@ public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRe
     private LatLng ultimaPosicao;
     private TaxiParse selected;
     private LinearLayout tabs;
+    private boolean posicionarMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,7 +85,7 @@ public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRe
         attacher = ((MainActivity) getActivity()).attacher;
         app = (App) getActivity().getApplication();
         app.callback = configAtualizarLocation();
-        mapaTabview = new MapaTabView(this, getActivity().getLayoutInflater().inflate(R.layout.tabview_mapa, null));
+        mapaTabview = new MapaTabView(this, getActivity().getLayoutInflater().inflate(R.layout.tabview_mapa, null),configOnInfoWindowClickListener());
         listTabView = new ListTabView(this, getActivity().getLayoutInflater().inflate(R.layout.tabview_list, null));
         listTabView.uiHelper.listView.setOnItemLongClickListener(configOnItemLongClickListener());
         listTabView.uiHelper.listView.setOnItemClickListener(configOnItemClickListener());
@@ -137,6 +141,17 @@ public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRe
         };
     }
 
+    /**
+     * Quando clicar no pin do mapa inicar uma nova tela
+     * @return
+     */
+    private GoogleMap.OnInfoWindowClickListener configOnInfoWindowClickListener() {
+        return marker -> {
+            app.taxiSelecionado = (TaxiParse) app.mapMarker.get(marker);
+            NavegacaoUtil.navegar(getActivity(), DetalheTaxiActivity.class);
+        };
+    }
+
     private FindCallback<ParseObject> configFindTaxiCallback() {
         return new FindCallback<ParseObject>() {
             @Override
@@ -163,6 +178,11 @@ public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRe
                         ultimaPosicao.latitude, ultimaPosicao.longitude);
                 if(distancia > MIN_DISTANCIA){
                     verificarStatus(StatusEnum.INICIO);
+                    mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
+                }
+                if(!posicionarMap){
+                    mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
+                    posicionarMap = true;
                 }
             }
             ultimaPosicao = app.location;

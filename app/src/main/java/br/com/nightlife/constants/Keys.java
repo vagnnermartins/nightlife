@@ -1,8 +1,5 @@
 package br.com.nightlife.constants;
 
-/**
- * Created by vagnnermartins on 24/10/14 .
- */
 public class Keys {
 
     public static final String PARSE_APP_ID = "3e5jlIxcArw28vAxklUUYsENJeZblOuVSrBQOQXx";

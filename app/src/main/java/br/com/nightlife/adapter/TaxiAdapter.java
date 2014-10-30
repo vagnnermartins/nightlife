@@ -15,9 +15,6 @@ import br.com.metasix.olhos_do_rio.componentebox.lib.util.DistanciaUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.parse.TaxiParse;
 
-/**
- * Created by vagnnermartins on 25/10/14.
- */
 public class TaxiAdapter extends ArrayAdapter<ParseObject> {
 
     private final int resource;

@@ -16,9 +16,6 @@ import br.com.nightlife.R;
 import br.com.nightlife.parse.BaladaParse;
 import br.com.nightlife.parse.RestauranteParse;
 
-/**
- * Created by vagnnermartins on 25/10/14.
- */
 public class RestauranteAdapter extends ArrayAdapter<ParseObject> {
 
     private final int resource;

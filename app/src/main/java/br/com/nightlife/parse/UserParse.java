@@ -7,9 +7,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
-/**
- * Created by vagnnermartins on 25/10/14.
- */
 @ParseClassName("_User")
 public class UserParse extends ParseUser {
 

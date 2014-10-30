@@ -13,9 +13,6 @@ import java.util.List;
 import br.com.nightlife.R;
 import br.com.nightlife.pojo.MenuPojo;
 
-/**
- * Created by vagnnermartins on 24/10/14 .
- */
 public class MenuAdapter extends ArrayAdapter<MenuPojo>{
 
     private int resource;

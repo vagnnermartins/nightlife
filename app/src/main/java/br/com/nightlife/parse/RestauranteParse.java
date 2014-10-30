@@ -6,9 +6,6 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-/**
- * Created by vagnnermartins on 29/10/14 .
- */
 @ParseClassName("Restaurante")
 public class RestauranteParse extends ParseObject {
 
@@ -90,5 +87,10 @@ public class RestauranteParse extends ParseObject {
 
     public ParseGeoPoint getLocalizacao(){
         return getParseGeoPoint(LOCALIZACAO);
+    }
+
+    @Override
+    public String toString() {
+        return getNome();
     }
 }

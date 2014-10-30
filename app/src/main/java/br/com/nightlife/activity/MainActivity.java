@@ -1,7 +1,10 @@
 package br.com.nightlife.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -21,12 +25,14 @@ import br.com.metasix.olhos_do_rio.componentebox.lib.util.NavegacaoUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.adapter.MenuAdapter;
 import br.com.nightlife.fragment.BaladaFragment;
+import br.com.nightlife.fragment.EstacionamentoFragment;
 import br.com.nightlife.pojo.MenuPojo;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 
 public class MainActivity extends FragmentActivity {
 
+    private static final long TIMER_TO_CLOSE = 400;
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawerLinear;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -36,6 +42,7 @@ public class MainActivity extends FragmentActivity {
     private CharSequence mTitle;
 
     public PullToRefreshAttacher attacher;
+    private int clicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +93,17 @@ public class MainActivity extends FragmentActivity {
     private AdapterView.OnItemClickListener configOnMenuItemClickListener() {
         return (parent, view, position, id) -> {
             mListView.setItemChecked(position, true);
-            selectItem(((MenuPojo)parent.getItemAtPosition(position)).getFragmentName());
+            if(((MenuPojo)parent.getItemAtPosition(position)).getFragmentName().equals(EstacionamentoFragment.class.getName())){
+                redirecionarAppEstacionamento();
+            }else{
+                selectItem(((MenuPojo)parent.getItemAtPosition(position)).getFragmentName());
+            }
         };
+    }
+
+    private void redirecionarAppEstacionamento() {
+        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=me.vagacerta.android"));
+        startActivity(myIntent);
     }
 
     /**
@@ -141,5 +157,21 @@ public class MainActivity extends FragmentActivity {
         ParseUser.logOut();
         NavegacaoUtil.navegar(this, LoginActivity.class);
         finish();
+    }
+
+    /**
+     * Método que gerencia o botão voltar do celular
+     */
+    @Override
+    public void onBackPressed() {
+        clicked++;
+        Handler handler = new Handler();
+        Runnable r = () -> clicked = 0;
+        if (clicked == 1) {
+            handler.postDelayed(r, TIMER_TO_CLOSE);
+            Toast.makeText(this, R.string.sair, Toast.LENGTH_SHORT).show();
+        } else if (clicked == 2) {
+            super.onBackPressed();
+        }
     }
 }

@@ -41,4 +41,10 @@ public class TaxiParse extends ParseObject {
     public ParseGeoPoint getLocalizacao(){
         return getParseGeoPoint(LOCALIZACAO);
     }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
+
 }

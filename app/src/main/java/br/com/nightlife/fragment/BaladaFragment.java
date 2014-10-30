@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
@@ -34,9 +36,6 @@ import br.com.nightlife.tabview.ListTabView;
 import br.com.nightlife.tabview.MapaTabView;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
-/**
- * Created by vagnnermartins on 27/10/14 .
- */
 public class BaladaFragment extends Fragment implements PullToRefreshAttacher.OnRefreshListener {
 
     private static final double MIN_DISTANCIA = 5000;
@@ -47,6 +46,7 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
     private LinearLayout tabs;
     private PullToRefreshAttacher attacher;
     private LatLng ultimaPosicao;
+    private boolean posicionarMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
 
     private void init() {
         getActivity().getActionBar().setTitle(R.string.fragment_baladas);
-        mapaTabview = new MapaTabView(this, getActivity().getLayoutInflater().inflate(R.layout.tabview_mapa, null));
+        mapaTabview = new MapaTabView(this, getActivity().getLayoutInflater().inflate(R.layout.tabview_mapa, null), configOnInfoWindowClickListener());
         listTabView = new ListTabView(this, getActivity().getLayoutInflater().inflate(R.layout.tabview_list, null));
         app = (App) getActivity().getApplication();
         attacher = ((MainActivity)getActivity()).attacher;
@@ -122,6 +122,17 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
         };
     }
 
+    /**
+     * Quando clicar no pin do mapa inicar uma nova tela
+     * @return
+     */
+    private GoogleMap.OnInfoWindowClickListener configOnInfoWindowClickListener() {
+        return marker -> {
+            app.baladaSelecionada = (BaladaParse) app.mapMarker.get(marker);
+            NavegacaoUtil.navegar(getActivity(), DetalheBaladaActivity.class);
+        };
+    }
+
     private FindCallback<ParseObject> configFindBaladasCallback() {
         return new FindCallback<ParseObject>() {
             @Override
@@ -148,6 +159,11 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
                         ultimaPosicao.latitude, ultimaPosicao.longitude);
                 if(distancia > MIN_DISTANCIA){
                     verificarStatus(StatusEnum.INICIO);
+                    mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
+                }
+                if(!posicionarMap){
+                    mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
+                    posicionarMap = true;
                 }
             }
             ultimaPosicao = app.location;

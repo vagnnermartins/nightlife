@@ -23,9 +23,6 @@ import br.com.nightlife.fragment.EventoFragment;
 import br.com.nightlife.fragment.RestauranteFragment;
 import br.com.nightlife.fragment.TaxiFragment;
 
-/**
- * Created by vagnnermartins on 27/10/14 .
- */
 public class ListTabView extends AbstractItemView {
 
     private final Fragment fragment;
@@ -44,6 +41,10 @@ public class ListTabView extends AbstractItemView {
         uiHelper.searchView.setOnQueryTextListener(configurarOnQueryTextListener());
     }
 
+    /**
+     * Responsável por fazer o filtro na lista de itens
+     * @return
+     */
     private SearchView.OnQueryTextListener configurarOnQueryTextListener() {
         return new SearchView.OnQueryTextListener() {
 

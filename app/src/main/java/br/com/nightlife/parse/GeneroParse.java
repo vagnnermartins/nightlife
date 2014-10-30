@@ -3,9 +3,6 @@ package br.com.nightlife.parse;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
-/**
- * Created by vagnnermartins on 25/10/14.
- */
 @ParseClassName("Genero")
 public class GeneroParse extends ParseObject {
 
@@ -13,5 +10,10 @@ public class GeneroParse extends ParseObject {
 
     public String getGenero(){
         return getString(GENERO);
+    }
+
+    @Override
+    public String toString() {
+        return getGenero();
     }
 }

@@ -22,6 +22,7 @@ import java.util.Map;
 
 import br.com.metasix.olhos_do_rio.componentebox.lib.tab.AbstractItemView;
 import br.com.nightlife.R;
+import br.com.nightlife.app.App;
 import br.com.nightlife.enums.StatusEnum;
 import br.com.nightlife.fragment.BaladaFragment;
 import br.com.nightlife.fragment.EventoFragment;
@@ -29,27 +30,27 @@ import br.com.nightlife.fragment.MeusEventosFragment;
 import br.com.nightlife.fragment.RestauranteFragment;
 import br.com.nightlife.fragment.TaxiFragment;
 
-/**
- * Created by vagnnermartins on 27/10/14 .
- */
 public class MapaTabView extends AbstractItemView {
 
-    public static final float ZOOM_MAP = 16;
+    public static final float ZOOM = 15;
 
     private final Fragment fragment;
     private final View view;
+    private final GoogleMap.OnInfoWindowClickListener onInfoWindowClickListener;
     private SupportMapFragment mMapaFragment;
     private MapaTabViewUiHelper uiHelper;
     private GoogleMap map;
-    private Map<Marker, ParseObject> mapMaker;
+    private App app;
 
-    public MapaTabView(Fragment fragment, View view) {
+    public MapaTabView(Fragment fragment, View view, GoogleMap.OnInfoWindowClickListener onInfoWindowClickListener) {
         this.fragment = fragment;
         this.view = view;
+        this.onInfoWindowClickListener = onInfoWindowClickListener;
         init();
     }
 
     private void init() {
+        app = (App) fragment.getActivity().getApplication();
         mMapaFragment = SupportMapFragment.newInstance();
         fragment.getChildFragmentManager().beginTransaction().add(R.id.tabview_map, mMapaFragment).commit();
         uiHelper = new MapaTabViewUiHelper();
@@ -60,6 +61,7 @@ public class MapaTabView extends AbstractItemView {
         map = mMapaFragment.getMap();
         map.getUiSettings().setZoomControlsEnabled(true);
         map.setMyLocationEnabled(true);
+        map.setOnInfoWindowClickListener(onInfoWindowClickListener);
     }
 
     private View.OnClickListener configurarOnUpdateClickListener() {
@@ -80,8 +82,6 @@ public class MapaTabView extends AbstractItemView {
 
     public void update(List<ParseObject> itens) {
         map.clear();
-        mapMaker = new HashMap<Marker, ParseObject>();
-        Map<Integer, BitmapDescriptor> pins = new HashMap<Integer, BitmapDescriptor>();
         for (ParseObject item : itens) {
             adicionarPin(item);
         }
@@ -97,7 +97,7 @@ public class MapaTabView extends AbstractItemView {
         MarkerOptions options = new MarkerOptions()
                 .position(new LatLng(point.getLatitude(), point.getLongitude()))
                 .title(item.getString("nome"));
-        mapMaker.put(map.addMarker(options), item);
+        app.mapMarker.put(map.addMarker(options), item);
     }
 
     public void atualizarPosicaoMap(LatLng latLng, float zoom) {

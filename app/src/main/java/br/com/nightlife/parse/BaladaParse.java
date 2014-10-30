@@ -6,9 +6,6 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-/**
- * Created by vagnnermartins on 25/10/14.
- */
 @ParseClassName("Balada")
 public class BaladaParse extends ParseObject {
 
