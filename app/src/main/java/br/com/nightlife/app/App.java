@@ -33,6 +33,7 @@ import br.com.nightlife.parse.EventoParse;
 import br.com.nightlife.parse.GeneroParse;
 import br.com.nightlife.parse.TaxiParse;
 import br.com.nightlife.parse.UserParse;
+import br.com.nightlife.tabview.MapaTabView;
 import br.com.nightlife.util.GPSTrackerUtils;
 
 /**

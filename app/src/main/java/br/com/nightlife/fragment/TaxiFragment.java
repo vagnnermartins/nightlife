@@ -1,6 +1,7 @@
 package br.com.nightlife.fragment;
 
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -69,6 +70,7 @@ public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRe
     public void onStart() {
         super.onStart();
         mapaTabview.initAfterStart();
+        mapaTabview.map.setOnMyLocationChangeListener(configOnMyLocationChangeListener());
         verificarAtualizar();
     }
 
@@ -180,10 +182,6 @@ public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRe
                     verificarStatus(StatusEnum.INICIO);
                     mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
                 }
-                if(!posicionarMap){
-                    mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
-                    posicionarMap = true;
-                }
             }
             ultimaPosicao = app.location;
             atualizarDistancia();
@@ -230,6 +228,16 @@ public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRe
     private void update() {
         listTabView.update(app.listTaxi, app.location);
         mapaTabview.update(app.listTaxi);
+    }
+
+    private GoogleMap.OnMyLocationChangeListener configOnMyLocationChangeListener() {
+        return location -> {
+            if(location != null && !posicionarMap){
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mapaTabview.atualizarPosicaoMap(latLng, MapaTabView.ZOOM);
+                posicionarMap = true;
+            }
+        };
     }
 
     @Override

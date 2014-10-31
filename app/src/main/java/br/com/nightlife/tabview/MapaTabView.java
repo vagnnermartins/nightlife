@@ -32,14 +32,14 @@ import br.com.nightlife.fragment.TaxiFragment;
 
 public class MapaTabView extends AbstractItemView {
 
-    public static final float ZOOM = 15;
+    public static final float ZOOM = 14;
 
     private final Fragment fragment;
     private final View view;
     private final GoogleMap.OnInfoWindowClickListener onInfoWindowClickListener;
     private SupportMapFragment mMapaFragment;
     private MapaTabViewUiHelper uiHelper;
-    private GoogleMap map;
+    public GoogleMap map;
     private App app;
 
     public MapaTabView(Fragment fragment, View view, GoogleMap.OnInfoWindowClickListener onInfoWindowClickListener) {

@@ -1,5 +1,8 @@
 package br.com.nightlife.fragment;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -59,6 +62,7 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
     public void onStart() {
         super.onStart();
         mapaTabview.initAfterStart();
+        mapaTabview.map.setOnMyLocationChangeListener(configOnMyLocationChangeListener());
         verificarAtualizar();
     }
 
@@ -161,10 +165,6 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
                     verificarStatus(StatusEnum.INICIO);
                     mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
                 }
-                if(!posicionarMap){
-                    mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
-                    posicionarMap = true;
-                }
             }
             ultimaPosicao = app.location;
             atualizarDistancia();
@@ -188,6 +188,16 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
     @Override
     public void onRefreshStarted(View view) {
         verificarStatus(StatusEnum.INICIO);
+    }
+
+    private GoogleMap.OnMyLocationChangeListener configOnMyLocationChangeListener() {
+        return location -> {
+            if(location != null && !posicionarMap){
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mapaTabview.atualizarPosicaoMap(latLng, MapaTabView.ZOOM);
+                posicionarMap = true;
+            }
+        };
     }
 
     @Override

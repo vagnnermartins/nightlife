@@ -32,7 +32,7 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 public class MainActivity extends FragmentActivity {
 
-    private static final long TIMER_TO_CLOSE = 400;
+    private static final long TIMER_TO_CLOSE = 500;
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawerLinear;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -43,6 +43,7 @@ public class MainActivity extends FragmentActivity {
 
     public PullToRefreshAttacher attacher;
     private int clicked;
+    private String lastFragment = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,11 +112,14 @@ public class MainActivity extends FragmentActivity {
      * @param fragmentName Nome da Fragment que será chamada para iniciar na tela
      */
     private void selectItem(String fragmentName) {
-        Bundle args = new Bundle();
-        Fragment fragment = Fragment.instantiate(this, fragmentName, args);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-        mDrawerLayout.closeDrawer(mDrawerLinear);
+        if(!lastFragment.equals(fragmentName)){
+            Bundle args = new Bundle();
+            Fragment fragment = Fragment.instantiate(this, fragmentName, args);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            mDrawerLayout.closeDrawer(mDrawerLinear);
+            lastFragment = fragmentName;
+        }
     }
 
     @Override

@@ -63,6 +63,7 @@ public class RestauranteFragment extends Fragment implements PullToRefreshAttach
     public void onStart() {
         super.onStart();
         mapaTabview.initAfterStart();
+        mapaTabview.map.setOnMyLocationChangeListener(configOnMyLocationChangeListener());
         verificarAtualizar();
     }
 
@@ -150,10 +151,6 @@ public class RestauranteFragment extends Fragment implements PullToRefreshAttach
                     verificarStatus(StatusEnum.INICIO);
                     mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
                 }
-                if(!posicionarMap){
-                    mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
-                    posicionarMap = true;
-                }
             }
             ultimaPosicao = app.location;
             atualizarDistancia();
@@ -185,6 +182,16 @@ public class RestauranteFragment extends Fragment implements PullToRefreshAttach
     @Override
     public void onRefreshStarted(View view) {
         verificarStatus(StatusEnum.INICIO);
+    }
+
+    private GoogleMap.OnMyLocationChangeListener configOnMyLocationChangeListener() {
+        return location -> {
+            if(location != null && !posicionarMap){
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mapaTabview.atualizarPosicaoMap(latLng, MapaTabView.ZOOM);
+                posicionarMap = true;
+            }
+        };
     }
 
     @Override

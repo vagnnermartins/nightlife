@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -40,6 +41,7 @@ public class EventoFragment extends Fragment implements PullToRefreshAttacher.On
     private MapaTabView mapaTabview;
     private ListTabView listTabView;
     private LinearLayout tabs;
+    private boolean posicionarMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class EventoFragment extends Fragment implements PullToRefreshAttacher.On
     public void onStart() {
         super.onStart();
         mapaTabview.initAfterStart();
+        mapaTabview.map.setOnMyLocationChangeListener(configOnMyLocationChangeListener());
         verificarAtualizar();
     }
 
@@ -139,6 +142,16 @@ public class EventoFragment extends Fragment implements PullToRefreshAttacher.On
     private void update() {
         listTabView.update(app.listEvento);
         mapaTabview.update(app.listEvento);
+    }
+
+    private GoogleMap.OnMyLocationChangeListener configOnMyLocationChangeListener() {
+        return location -> {
+            if(location != null && !posicionarMap){
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mapaTabview.atualizarPosicaoMap(latLng, MapaTabView.ZOOM);
+                posicionarMap = true;
+            }
+        };
     }
 
     @Override
