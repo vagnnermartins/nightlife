@@ -24,6 +24,14 @@ public class EventoParse extends ParseObject {
         query.findInBackground(callback);
     }
 
+    public static void buscarEventosPorBalada(BaladaParse balada, FindCallback<ParseObject> callback){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Evento");
+        query.orderByAscending(DATA_EVENTO);
+        query.include(BALADA);
+        query.whereEqualTo(BALADA, balada);
+        query.findInBackground(callback);
+    }
+
     public String getNome(){
         return getString(NOME);
     }

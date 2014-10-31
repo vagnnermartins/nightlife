@@ -40,6 +40,9 @@
     <string name="detalhe_evento_evento_adicionado">Evento adicionado em seus eventos com sucesso</string>
     <string name="detalhe_evento_evento_removido">Evento removido de seus eventos com sucesso</string>
 
+    <!-- Detalhe Balada -->
+    <string name="detalhe_balada_eventos">Eventos</string>
+
     <!-- Erro -->
     <string name="exception_erro_err_internet_disconnected">Could not find an internet connection. Try again!</string>
     <string name="exception_erro_err_gps">Could not find an GPS connection. Try again!</string>
@@ -47,5 +50,6 @@
     <string name="title_activity_detalhe_restaurante">DetalheRestauranteActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_evento_balada">EventoBaladaActivity</string>
 
 </resources>

@@ -19,6 +19,10 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +61,7 @@ public class App extends Application {
     public RestauranteParse restauranteSelecionado;
     public TaxiParse taxiSelecionado;
     public Map<Marker, ParseObject> mapMarker;
+    public Map<String, List<ParseObject>> mapEventoBalada;
 
     @Override
     public void onCreate() {
@@ -69,6 +74,7 @@ public class App extends Application {
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = configLocationListener();
         mapMarker = new HashMap<>();
+        mapEventoBalada = new HashMap<>();
         updateLocation();
     }
 

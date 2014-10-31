@@ -31,7 +31,7 @@
         <activity
             android:name="br.com.nightlife.activity.SplashScreenActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,29 +46,35 @@
         <activity
             android:name="br.com.nightlife.activity.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="br.com.nightlife.activity.LoginActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="br.com.nightlife.activity.DetalheEventoActivity"
-            android:screenOrientation="portrait">
+        <activity
+            android:name="br.com.nightlife.activity.DetalheEventoActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="br.com.nightlife.activity.DetalheBaladaActivity"
             android:label="@string/title_activity_detalhe_balada"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="br.com.nightlife.activity.DetalheTaxiActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="br.com.nightlife.activity.DetalheRestauranteActivity"
             android:label="@string/title_activity_detalhe_restaurante"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="br.com.nightlife.activity.EventoBaladaActivity"
+            android:label="@string/title_activity_evento_balada"
             android:screenOrientation="portrait">
         </activity>
     </application>

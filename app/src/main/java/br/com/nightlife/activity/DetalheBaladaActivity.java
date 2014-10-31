@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.metasix.olhos_do_rio.componentebox.lib.util.NavegacaoUtil;
 import br.com.nightlife.R;
 import br.com.nightlife.app.App;
 
@@ -124,10 +126,20 @@ public class DetalheBaladaActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-            finish();
-            break;
+                finish();
+                break;
+            case R.id.menu_detalhe_balada_eventos:
+                NavegacaoUtil.navegar(this, EventoBaladaActivity.class);
+                overridePendingTransition(R.anim.in_baixo_para_cima, R.anim.out_baixo_para_cima);
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detalhe_balada,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     class DetalheBaladaUiHelper{
