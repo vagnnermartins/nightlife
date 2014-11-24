@@ -183,6 +183,7 @@ public class DetalheEventoActivity extends FragmentActivity {
                 break;
             case R.id.menu_detalhe_evento_participar:
                 verificarEvento();
+                app.meusEventos = null;
                 break;
         }
         return super.onOptionsItemSelected(item);

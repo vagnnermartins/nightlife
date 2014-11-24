@@ -11,7 +11,7 @@ import br.com.nightlife.R;
 
 public class SplashScreenActivity extends Activity {
 
-    private static final long TIMER = 500;
+    private static final long TIMER = 2500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -101,6 +101,11 @@ public class EventoBaladaActivity extends Activity implements PullToRefreshAttac
                 if(error == null){
                     app.mapEventoBalada.put(app.baladaSelecionada.getObjectId(), result);
                     setList(result);
+                    if(result.isEmpty()){
+                        uiHelper.message.setVisibility(View.VISIBLE);
+                    }else{
+                        uiHelper.message.setVisibility(View.GONE);
+                    }
                 }
                 verificarStatus(StatusEnum.EXECUTADO);
             }
@@ -129,11 +134,12 @@ public class EventoBaladaActivity extends Activity implements PullToRefreshAttac
     }
 
     class EventoBaladaUHelper{
-
         public ListView listView;
+        public View message;
 
         public EventoBaladaUHelper(){
             listView = (ListView) findViewById(R.id.evento_listview);
+            message = findViewById(R.id.eventos_message_main);
         }
     }
 }

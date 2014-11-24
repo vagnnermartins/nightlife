@@ -43,6 +43,9 @@
     <!-- Detalhe Balada -->
     <string name="detalhe_balada_eventos">Eventos</string>
 
+    <!-- Detalhe Balada -->
+    <string name="balada_evento_nenhum_evento">Nenhnum evento programado.</string>
+
     <!-- Erro -->
     <string name="exception_erro_err_internet_disconnected">Could not find an internet connection. Try again!</string>
     <string name="exception_erro_err_gps">Could not find an GPS connection. Try again!</string>

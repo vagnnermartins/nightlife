@@ -38,8 +38,13 @@ public class MeusEventosFragment extends Fragment implements PullToRefreshAttach
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_meus_eventos, container, false);
         init();
-        verificarAtualizar();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        verificarAtualizar();
     }
 
     private void verificarAtualizar() {
@@ -87,6 +92,11 @@ public class MeusEventosFragment extends Fragment implements PullToRefreshAttach
 
     private void setList(List<ParseObject> result) {
         uiHelper.listView.setAdapter(new EventoAdapter(getActivity(), R.layout.item_evento, result));
+        if(result.isEmpty()){
+            uiHelper.message.setVisibility(View.VISIBLE);
+        }else{
+            uiHelper.message.setVisibility(View.GONE);
+        }
     }
 
     private AdapterView.OnItemClickListener configOnItemClickListener() {
@@ -119,9 +129,11 @@ public class MeusEventosFragment extends Fragment implements PullToRefreshAttach
     class MeusEventosUHelper{
 
         public ListView listView;
+        public View message;
 
         public MeusEventosUHelper(){
             listView = (ListView) view.findViewById(R.id.evento_listview);
+            message = view.findViewById(R.id.eventos_message_main);
         }
     }
 }

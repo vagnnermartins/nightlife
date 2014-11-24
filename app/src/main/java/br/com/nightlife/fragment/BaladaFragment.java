@@ -165,6 +165,7 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
                     verificarStatus(StatusEnum.INICIO);
                     mapaTabview.atualizarPosicaoMap(ultimaPosicao, MapaTabView.ZOOM);
                 }
+                listTabView.uiHelper.listView.invalidateViews();
             }
             ultimaPosicao = app.location;
             atualizarDistancia();
