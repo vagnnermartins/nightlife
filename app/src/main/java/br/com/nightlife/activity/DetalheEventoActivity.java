@@ -1,6 +1,7 @@
 package br.com.nightlife.activity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -89,7 +90,8 @@ public class DetalheEventoActivity extends FragmentActivity {
     }
 
     private void verificarMeusEventos() {
-        if(app.isInternetConnection()){
+        if(app.isInternetConnection(this, R.string.button_tentar_novamente, onTentarNovamenteClickListener(),
+                R.string.button_sair, onSairClickListener())){
             UserParse user = (UserParse) ParseUser.getCurrentUser();
             user.getMeusEventos().getQuery().findInBackground(configFindMeusEventosCallback());
             verificarMeusEventos(StatusEnum.EXECUTANDO);
@@ -273,6 +275,24 @@ public class DetalheEventoActivity extends FragmentActivity {
             this.endereco = (TextView) findViewById(R.id.detalhe_evento_endereco);
             this.telefone = (TextView) findViewById(R.id.detalhe_evento_telefone);
         }
+    }
+
+    private DialogInterface.OnClickListener onTentarNovamenteClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                verificarMeusEventos(StatusEnum.INICIO);
+            }
+        };
+    }
+
+    private DialogInterface.OnClickListener onSairClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        };
     }
 
 }

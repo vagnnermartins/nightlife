@@ -1,6 +1,7 @@
 package br.com.nightlife.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,7 +70,8 @@ public class EventoBaladaActivity extends Activity implements PullToRefreshAttac
     }
 
     private void verificarInicio() {
-        if(app.isInternetConnection()){
+        if(app.isInternetConnection(this, R.string.button_tentar_novamente, onTentarNovamenteClickListener(),
+                R.string.button_sair, onSairClickListener())){
             EventoParse.buscarEventosPorBalada(app.baladaSelecionada, configBuscarEventosPorBaladaCallback());
             verificarStatus(StatusEnum.EXECUTANDO);
         }
@@ -141,5 +143,23 @@ public class EventoBaladaActivity extends Activity implements PullToRefreshAttac
             listView = (ListView) findViewById(R.id.evento_listview);
             message = findViewById(R.id.eventos_message_main);
         }
+    }
+
+    private DialogInterface.OnClickListener onTentarNovamenteClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                verificarStatus(StatusEnum.INICIO);
+            }
+        };
+    }
+
+    private DialogInterface.OnClickListener onSairClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        };
     }
 }

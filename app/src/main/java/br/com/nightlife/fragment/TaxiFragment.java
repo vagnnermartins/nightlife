@@ -1,5 +1,6 @@
 package br.com.nightlife.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
@@ -111,7 +112,8 @@ public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRe
     }
 
     private void verificarInicio() {
-        if(app.isInternetConnection()){
+        if(app.isInternetConnection(getActivity(), R.string.button_tentar_novamente, onTentarNovamenteClickListener(), R.string.button_sair, onSairClickListener()) &&
+                app.isGPSEnable(getActivity(), R.string.button_tentar_novamente, onTentarNovamenteClickListener(), R.string.button_sair, onSairClickListener())){
             ParseGeoPoint point = null;
             if(app.location != null){
                 point = new ParseGeoPoint(app.location.latitude, app.location.longitude);
@@ -244,5 +246,23 @@ public class TaxiFragment extends Fragment implements PullToRefreshAttacher.OnRe
     public void onDestroy() {
         super.onDestroy();
         app.callback = null;
+    }
+
+    private DialogInterface.OnClickListener onTentarNovamenteClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                verificarStatus(StatusEnum.INICIO);
+            }
+        };
+    }
+
+    private DialogInterface.OnClickListener onSairClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        };
     }
 }

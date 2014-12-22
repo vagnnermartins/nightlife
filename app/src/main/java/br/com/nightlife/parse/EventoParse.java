@@ -21,6 +21,7 @@ public class EventoParse extends ParseObject {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Evento");
         query.orderByAscending(DATA_EVENTO);
         query.include(BALADA);
+        query.whereGreaterThanOrEqualTo("dataEvento", new Date());
         query.findInBackground(callback);
     }
 
@@ -29,6 +30,7 @@ public class EventoParse extends ParseObject {
         query.orderByAscending(DATA_EVENTO);
         query.include(BALADA);
         query.whereEqualTo(BALADA, balada);
+        query.whereGreaterThanOrEqualTo("dataEvento", new Date());
         query.findInBackground(callback);
     }
 

@@ -7,6 +7,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
+import java.util.Date;
+
 @ParseClassName("_User")
 public class UserParse extends ParseUser {
 
@@ -16,6 +18,7 @@ public class UserParse extends ParseUser {
     public void buscarMeusEventos(FindCallback<ParseObject> callback){
         ParseQuery<ParseObject> query = getMeusEventos().getQuery();
         query.include(BALADA);
+        query.whereGreaterThanOrEqualTo("dataEvento", new Date());
         query.findInBackground(callback);
     }
 

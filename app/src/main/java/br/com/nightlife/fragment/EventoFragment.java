@@ -1,5 +1,6 @@
 package br.com.nightlife.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -92,7 +93,8 @@ public class EventoFragment extends Fragment implements PullToRefreshAttacher.On
     }
 
     private void verificarInicio() {
-        if(app.isInternetConnection()){
+        if(app.isInternetConnection(getActivity(), R.string.button_tentar_novamente, onTentarNovamenteClickListener(), R.string.button_sair, onSairClickListener()) &&
+                app.isGPSEnable(getActivity(), R.string.button_tentar_novamente, onTentarNovamenteClickListener(), R.string.button_sair, onSairClickListener())){
             EventoParse.buscarProximosEventos(configBuscarProximosEventos());
             verificarStatus(StatusEnum.EXECUTANDO);
         }
@@ -157,5 +159,23 @@ public class EventoFragment extends Fragment implements PullToRefreshAttacher.On
     @Override
     public void onRefreshStarted(View view) {
         verificarStatus(StatusEnum.INICIO);
+    }
+
+    private DialogInterface.OnClickListener onTentarNovamenteClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                verificarStatus(StatusEnum.INICIO);
+            }
+        };
+    }
+
+    private DialogInterface.OnClickListener onSairClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        };
     }
 }

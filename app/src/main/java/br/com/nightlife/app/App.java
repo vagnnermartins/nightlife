@@ -3,6 +3,7 @@ package br.com.nightlife.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -38,6 +39,7 @@ import br.com.nightlife.parse.GeneroParse;
 import br.com.nightlife.parse.TaxiParse;
 import br.com.nightlife.parse.UserParse;
 import br.com.nightlife.tabview.MapaTabView;
+import br.com.nightlife.util.DialogUtil;
 import br.com.nightlife.util.GPSTrackerUtils;
 
 /**
@@ -92,22 +94,27 @@ public class App extends Application {
         ParseFacebookUtils.initialize(Keys.FACEBOOK_APP_ID);
     }
 
-    public boolean isInternetConnection(){
+    public boolean isInternetConnection(Activity activity, int positiveText, DialogInterface.OnClickListener onTentarNovamenteClickListener,
+                                        int negativeText, DialogInterface.OnClickListener onSairClickListener){
         ConnectionDetectorUtils cd = new ConnectionDetectorUtils(this);
         if (!cd.isConnectingToInternet()) {
-            Toast.makeText(this, R.string.exception_erro_err_internet_disconnected, Toast.LENGTH_LONG).show();
+            DialogUtil.showDialog(activity, R.string.exception_erro_err_internet_disconnected_title, R.string.exception_erro_err_internet_disconnected,
+                    positiveText, onTentarNovamenteClickListener,
+                    negativeText, onSairClickListener);
             return false;
         }
         return true;
     }
 
-    public boolean isGPSEnable(Activity activity){
+    public boolean isGPSEnable(Activity activity, int positiveText, DialogInterface.OnClickListener onTentarNovamenteClickListener,
+                               int negativeText, DialogInterface.OnClickListener onSairClickListener){
         GPSTrackerUtils gps = new GPSTrackerUtils(activity);
-
         if (gps.canGetLocation()) {
             Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
         } else {
-            Toast.makeText(this, R.string.exception_erro_err_gps, Toast.LENGTH_LONG).show();
+            DialogUtil.showDialog(activity, R.string.exception_erro_err_gps_title, R.string.exception_erro_err_gps,
+                    positiveText, onTentarNovamenteClickListener,
+                    negativeText, onSairClickListener);
             return false;
         }
 

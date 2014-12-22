@@ -1,6 +1,7 @@
 package br.com.nightlife.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -49,7 +50,8 @@ public class LoginActivity extends Activity {
     }
 
     private void statusInicio() {
-        if(app.isInternetConnection()){
+        if(app.isInternetConnection(this, R.string.button_tentar_novamente, onTentarNovamenteClickListener(),
+                R.string.button_sair, onSairClickListener())){
             ParseFacebookUtils.logIn(
                     Arrays.asList(ParseFacebookUtils.Permissions.User.ABOUT_ME, ParseFacebookUtils.Permissions.User.BIRTHDAY),
                     this, callBackLoginFacebook());
@@ -102,6 +104,24 @@ public class LoginActivity extends Activity {
             facebook = findViewById(R.id.login_facebook);
             progress = findViewById(R.id.login_facebook_progress);
         }
+    }
+
+    private DialogInterface.OnClickListener onTentarNovamenteClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                verificarStatus(StatusEnum.INICIO);
+            }
+        };
+    }
+
+    private DialogInterface.OnClickListener onSairClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        };
     }
 
 }

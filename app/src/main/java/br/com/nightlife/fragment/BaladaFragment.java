@@ -1,6 +1,7 @@
 package br.com.nightlife.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import br.com.nightlife.enums.StatusEnum;
 import br.com.nightlife.parse.BaladaParse;
 import br.com.nightlife.tabview.ListTabView;
 import br.com.nightlife.tabview.MapaTabView;
+import br.com.nightlife.util.DialogUtil;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 public class BaladaFragment extends Fragment implements PullToRefreshAttacher.OnRefreshListener {
@@ -101,12 +103,13 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
     }
 
     private void verificarInicio() {
-        if(app.isInternetConnection()){
+        if(app.isInternetConnection(getActivity(), R.string.button_tentar_novamente, onTentarNovamenteClickListener(), R.string.button_sair, onSairClickListener()) &&
+                app.isGPSEnable(getActivity(), R.string.button_tentar_novamente, onTentarNovamenteClickListener(), R.string.button_sair, onSairClickListener())){
             ParseGeoPoint point = null;
             if(app.location != null){
                 point = new ParseGeoPoint(app.location.latitude, app.location.longitude);
             }
-            BaladaParse.buscarBaladas(point, configFindBaladasCallback());
+            BaladaParse.buscarBaladas(point, configFindBaladasCallback(), BaladaParse.STATUS_ATIVO);
             verificarStatus(StatusEnum.EXECUTANDO);
         }
     }
@@ -205,5 +208,23 @@ public class BaladaFragment extends Fragment implements PullToRefreshAttacher.On
     public void onDestroy() {
         super.onDestroy();
         app.callback = null;
+    }
+
+    private DialogInterface.OnClickListener onTentarNovamenteClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                verificarStatus(StatusEnum.INICIO);
+            }
+        };
+    }
+
+    private DialogInterface.OnClickListener onSairClickListener() {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        };
     }
 }

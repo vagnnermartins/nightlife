@@ -9,6 +9,8 @@ import com.parse.ParseQuery;
 @ParseClassName("Balada")
 public class BaladaParse extends ParseObject {
 
+    public static final int STATUS_ATIVO = 3;
+
     private static final String NOME = "nome";
     private static final String ENDERECO = "endereco";
     private static final String CEP = "cep";
@@ -23,12 +25,13 @@ public class BaladaParse extends ParseObject {
     private static final String PACOTE_ANIVERSARIO = "pacoteAniversario";
     private static final double MAX_DISTANCE = 100;
 
-    public static void buscarBaladas(ParseGeoPoint point, FindCallback<ParseObject> callback){
+    public static void buscarBaladas(ParseGeoPoint point, FindCallback<ParseObject> callback, int status){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Balada");
         if(point != null){
             query.whereWithinKilometers(LOCALIZACAO, point, MAX_DISTANCE);
             query.whereNear(LOCALIZACAO, point);
         }
+        query.whereEqualTo("status", status);
         query.findInBackground(callback);
     }
 
